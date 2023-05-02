@@ -4,11 +4,14 @@ import os
 import subprocess
 
 
+INPUT_DIR = "input"
+OUTPUT_DIR = "output"
+
+
 def ger_char(input):
     return chars_list[int(input*interval)]
 
 chars = " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
-print(chars[::-1])
 chars_list = list(chars)
 chars_length = len(chars_list)
 interval = chars_length/256
@@ -20,17 +23,23 @@ char_height = char_width*2
 input_vid = "input.mp4"
 fps = 30
 
-if os.path.exists("input"): shutil.rmtree("input")
-if os.path.exists("output"): shutil.rmtree("output")
-os.mkdir("input")
-os.mkdir("output")
+if os.path.exists(INPUT_DIR): shutil.rmtree(INPUT_DIR)
+if os.path.exists(OUTPUT_DIR): shutil.rmtree(OUTPUT_DIR)
+os.mkdir(INPUT_DIR)
+os.mkdir(OUTPUT_DIR)
 
 print("Converting to images")
 subprocess.run(f"ffmpeg -i \"{input_vid}\" -q:a 0 -map a audio.mp3 -r {fps} input/img_%1d.jpg", shell=True)
 
+# get number of files in input directory TODO: estimate time converting to ascii takes using this
+file_count = 0
+for entry in os.listdir(INPUT_DIR):
+    file_count += 1
+
+# convert each image in input directory to ascii
 index = 1
-for file in os.listdir("input"):
-    print(f"Converting... {index}")
+for file in os.listdir(INPUT_DIR):
+    print(f"Converting to ascii... {index}/{file_count}")
 
     # open input image
     im = Image.open(f"input/img_{index}.jpg").convert("RGB")
