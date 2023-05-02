@@ -7,24 +7,21 @@ import subprocess
 def ger_char(input):
     return chars_list[int(input*interval)]
 
-
-chars = " .,-~:;=!*#$@"
+chars = " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
+print(chars[::-1])
 chars_list = list(chars)
 chars_length = len(chars_list)
 interval = chars_length/256
 
-# font = ImageFont.truetype("C:\\Windows\\Fonts\\lucon.ttf")
-
 scale = 0.2
-char_width = 10
+char_width = 6
 char_height = char_width*2
 
 input_vid = "input.mp4"
 fps = 30
 
-
-shutil.rmtree("input")
-shutil.rmtree("output")
+if os.path.exists("input"): shutil.rmtree("input")
+if os.path.exists("output"): shutil.rmtree("output")
 os.mkdir("input")
 os.mkdir("output")
 
@@ -54,12 +51,12 @@ for file in os.listdir("input"):
             r, g, b = pix[x, y]
             h = int(r/3 + g/3 + b/3)
             pix[x, y] = (h, h, h)
-            draw.text((x*char_width, y*char_height), ger_char(h), (r/10, g/10, b/10))
+            draw.text((x*char_width, y*char_height), ger_char(h), (r, g, b))
 
     output_image.save(f"output/img_{index}.jpg")
 
     index += 1
 
 print("Converting to video")
-subprocess.run(f"ffmpeg -i audio.mp3 -r {fps} -i output/img_%1d.jpg output.mp4")
+subprocess.run(f"ffmpeg -i audio.mp3 -r {fps} -i output/img_%1d.jpg output.mp4", shell=True)
 print("DONE! (hopefully)")
