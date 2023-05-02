@@ -11,12 +11,14 @@ OUTPUT_DIR = "output"
 def ger_char(input):
     return chars_list[int(input*interval)]
 
+
 chars = " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
 chars_list = list(chars)
 chars_length = len(chars_list)
 interval = chars_length/256
 
 scale = 0.2
+# change this to change spacing of characters
 char_width = 6
 char_height = char_width*2
 
