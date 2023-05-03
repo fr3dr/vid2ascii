@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 import shutil
 import os
 import subprocess
@@ -33,7 +33,8 @@ os.mkdir(OUTPUT_DIR)
 print("Converting to images")
 subprocess.run(f"ffmpeg -i \"{input_vid}\" -q:a 0 -map a audio.mp3 -r {fps} input/img_%1d.jpg", shell=True)
 
-# get number of files in input directory TODO: estimate time converting to ascii takes using this
+# TODO: estimate the time it takes converting to ascii using this
+# get number of files in input directory
 file_count = 0
 for entry in os.listdir(INPUT_DIR):
     file_count += 1
