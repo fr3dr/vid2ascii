@@ -60,12 +60,12 @@ for file in os.listdir(INPUT_DIR):
     output_image = Image.new("RGB", (char_width*width, char_height*height), color=(0, 0, 0))
     draw = ImageDraw.Draw(output_image)
 
+    # Loop through each pixel in the input image and calculate intensity
     for y in range(height):
         for x in range(width):
             r, g, b = pix[x, y]
-            h = int(r/3 + g/3 + b/3)
-            pix[x, y] = (h, h, h)
-            draw.text((x*char_width, y*char_height), ger_char(h), (r, g, b))
+            intensity = int(r/3 + g/3 + b/3)
+            draw.text((x*char_width, y*char_height), ger_char(intensity), (r, g, b))
 
     output_image.save(f"output/img_{index}.jpg")
 
