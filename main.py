@@ -12,6 +12,9 @@ def ger_char(input):
     return chars_list[int(input*interval)]
 
 
+input_vid = "input.mp4"
+fps = 30
+
 chars = " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
 chars_list = list(chars)
 chars_length = len(chars_list)
@@ -22,11 +25,10 @@ scale = 0.2
 char_width = 6
 char_height = char_width*2
 
-input_vid = "input.mp4"
-fps = 30
-
-if os.path.exists(INPUT_DIR): shutil.rmtree(INPUT_DIR)
-if os.path.exists(OUTPUT_DIR): shutil.rmtree(OUTPUT_DIR)
+if os.path.exists(INPUT_DIR):
+    shutil.rmtree(INPUT_DIR)
+if os.path.exists(OUTPUT_DIR):
+    shutil.rmtree(OUTPUT_DIR)
 os.mkdir(INPUT_DIR)
 os.mkdir(OUTPUT_DIR)
 
