@@ -6,6 +6,7 @@ import subprocess
 
 INPUT_DIR = "input"
 OUTPUT_DIR = "output"
+AUDIO_FILE = "audio.mp3"
 
 
 input_vid = "input.mp4"
@@ -35,12 +36,12 @@ def convert_img():
     os.mkdir(OUTPUT_DIR)
 
     print("Converting to images")
-    subprocess.run(f"ffmpeg -i \"{input_vid}\" -q:a 0 -map a audio.mp3 -r {fps} input/img_%1d.jpg", shell=True)
+    subprocess.run(f"ffmpeg -i \"{input_vid}\" -q:a 0 -map a {AUDIO_FILE} -r {fps} input/img_%1d.jpg", shell=True)
 
 
 def convert_vid():
     print("Converting to video")
-    subprocess.run(f"ffmpeg -i audio.mp3 -r {fps} -i output/img_%1d.jpg output.mp4", shell=True)
+    subprocess.run(f"ffmpeg -i {AUDIO_FILE} -r {fps} -i output/img_%1d.jpg output.mp4", shell=True)
     print("DONE! (hopefully)")
 
 
@@ -85,7 +86,14 @@ def asciify(file_count):
         index += 1
 
 
+def cleanup():
+    shutil.rmtree(INPUT_DIR)
+    shutil.rmtree(OUTPUT_DIR)
+    os.remove(AUDIO_FILE)
+
+
 if __name__ == "__main__":
     convert_img()
     asciify(get_file_count())
     convert_vid()
+    cleanup()
