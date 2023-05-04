@@ -23,7 +23,7 @@ char_width = 6
 char_height = char_width*2
 
 
-def ger_char(input):
+def get_char(input):
     return chars_list[int(input*interval)]
 
 
@@ -79,7 +79,7 @@ def asciify(file_count):
             for x in range(width):
                 r, g, b = pix[x, y]
                 intensity = int(r/3 + g/3 + b/3)
-                draw.text((x*char_width, y*char_height), ger_char(intensity), (r, g, b))
+                draw.text((x*char_width, y*char_height), get_char(intensity), (r, g, b))
 
         output_image.save(f"output/img_{index}.jpg")
 
