@@ -13,15 +13,16 @@ AUDIO_FILE = "audio.mp3"
 input_vid = "input.mp4"
 fps = 30
 
-chars = " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
-chars_list = list(chars)
-chars_length = len(chars_list)
-interval = chars_length/256
-
 scale = 0.2
 # change this to change spacing of characters
 char_width = 6
 char_height = char_width*2
+
+# char list
+chars = " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
+chars_list = list(chars)
+chars_length = len(chars_list)
+interval = chars_length/256
 
 
 def get_char(input):
@@ -47,7 +48,6 @@ def convert_vid():
 
 
 def get_file_count():
-    # TODO: estimate the time it takes converting to ascii using this
     # get number of files in input directory
     file_count = 0
     for entry in os.listdir(INPUT_DIR):
@@ -77,7 +77,7 @@ def asciify(file_count):
         output_image = Image.new("RGB", (char_width*width, char_height*height), color=(0, 0, 0))
         draw = ImageDraw.Draw(output_image)
 
-        # Loop through each pixel in the input image and calculate intensity
+        # loop through each pixel in the input image and calculate intensity
         for y in range(height):
             for x in range(width):
                 r, g, b = pix[x, y]
