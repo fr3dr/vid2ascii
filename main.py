@@ -2,6 +2,7 @@ from PIL import Image, ImageDraw
 import shutil
 import os
 import subprocess
+import time
 
 
 INPUT_DIR = "input"
@@ -57,8 +58,10 @@ def get_file_count():
 def asciify(file_count):
     # convert each image in input directory to ascii
     index = 1
+    start, end = time.time(), time.time()
     for file in os.listdir(INPUT_DIR):
-        print(f"Converting to ascii... {index}/{file_count}")
+        print(f"Converting to ascii: {index}/{file_count} Estimated seconds remaining: {int((end-start) * (file_count-index))}")
+        start = time.time()
 
         # open input image
         im = Image.open(f"input/img_{index}.jpg").convert("RGB")
@@ -84,6 +87,7 @@ def asciify(file_count):
         output_image.save(f"output/img_{index}.jpg")
 
         index += 1
+        end = time.time()
 
 
 def cleanup():
