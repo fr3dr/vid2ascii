@@ -1,6 +1,7 @@
 from PIL import Image, ImageDraw
 import shutil
 import os
+import sys
 import subprocess
 import time
 
@@ -38,13 +39,18 @@ def convert_img():
     os.mkdir(OUTPUT_DIR)
 
     print("Converting to images")
-    subprocess.run(f"ffmpeg -i \"{input_vid}\" -q:a 0 -map a {AUDIO_FILE} -r {fps} input/img_%1d.jpg", shell=True)
+    try:
+        subprocess.run(f"ffmpeg -i \"{input_vid}\" -q:a 0 -map a {AUDIO_FILE} -r {fps} input/img_%1d.jpg", shell=True, check=True)
+    except subprocess.CalledProcessError:
+        sys.exit("Error while converting to images")
 
 
 def convert_vid():
     print("Converting to video")
-    subprocess.run(f"ffmpeg -i {AUDIO_FILE} -r {fps} -i output/img_%1d.jpg output.mp4", shell=True)
-    print("DONE! (hopefully)")
+    try:
+        subprocess.run(f"ffmpeg -i {AUDIO_FILE} -r {fps} -i output/img_%1d.jpg output.mp4", shell=True, check=True)
+    except subprocess.CalledProcessError:
+        sys.exit("Error while converting to video")
 
 
 def get_file_count():
@@ -101,3 +107,4 @@ if __name__ == "__main__":
     asciify(get_file_count())
     convert_vid()
     cleanup()
+    print("DONE! (hopefully)")
