@@ -10,8 +10,7 @@ INPUT_DIR = "input"
 OUTPUT_DIR = "output"
 AUDIO_FILE = "audio.mp3"
 
-
-input_vid = "input.mp4"
+input_vid = sys.argv[1] if len(sys.argv) > 1 else sys.exit("Not enough arguments")
 fps = 30
 
 scale = 0.2
