@@ -73,7 +73,7 @@ def asciify(file_count):
         im = Image.open(f"input/img_{index}.jpg").convert("RGB")
 
         # resize input image
-        width, height = (1080, 720)
+        width, height = im.size
         im = im.resize((int(scale*width), int(scale*height*(char_width/char_height))), Image.NEAREST)
         width, height = im.size
 
