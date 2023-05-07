@@ -60,10 +60,11 @@ def get_file_count():
     return file_count
 
 
-def asciify(file_count):
+def asciify():
     # convert each image in input directory to ascii
-    index = 1
+    file_count = get_file_count()
     start, end = time.time(), time.time()
+    index = 1
     for file in os.listdir(INPUT_DIR):
         print(f"Converting to ascii: {index}/{file_count} Estimated seconds remaining: {int((end-start) * (file_count-index))}")
         start = time.time()
@@ -103,7 +104,7 @@ def cleanup():
 
 if __name__ == "__main__":
     convert_img()
-    asciify(get_file_count())
+    asciify()
     convert_vid()
     cleanup()
     print("DONE! (hopefully)")
