@@ -102,9 +102,13 @@ def cleanup():
     os.remove(AUDIO_FILE)
 
 
-if __name__ == "__main__":
+def main():
     convert_img()
     asciify()
     convert_vid()
     cleanup()
     print("DONE! (hopefully)")
+
+
+if __name__ == "__main__":
+    main()
