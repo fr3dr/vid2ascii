@@ -41,6 +41,8 @@ def convert_img():
     try:
         subprocess.run(f"ffmpeg -i \"{input_vid}\" -q:a 0 -map a {AUDIO_FILE} -r {fps} input/img_%1d.jpg", shell=True, check=True)
     except subprocess.CalledProcessError:
+        shutil.rmtree(INPUT_DIR)
+        shutil.rmtree(OUTPUT_DIR)
         sys.exit("Error while converting to images")
 
 
@@ -49,6 +51,8 @@ def convert_vid():
     try:
         subprocess.run(f"ffmpeg -i {AUDIO_FILE} -r {fps} -i output/img_%1d.jpg output.mp4", shell=True, check=True)
     except subprocess.CalledProcessError:
+        shutil.rmtree(INPUT_DIR)
+        shutil.rmtree(OUTPUT_DIR)
         sys.exit("Error while converting to video")
 
 
