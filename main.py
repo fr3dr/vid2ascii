@@ -10,13 +10,15 @@ INPUT_DIR = "input"
 OUTPUT_DIR = "output"
 AUDIO_FILE = "audio.mp3"
 
-input_vid = sys.argv[1] if len(sys.argv) > 1 else sys.exit("Not enough arguments")
+# get arguments
+input_vid = sys.argv[1] if len(sys.argv) > 1 else sys.exit("Not enough arguments. Intened usage: vid2ascii [input_vid] [fps] [scale]")
 fps = sys.argv[2] if len(sys.argv) > 2 else 30
 
 scale = float(sys.argv[3]) if len(sys.argv) > 3 else 0.2
 # change this to change spacing of characters
 char_width = 6
 char_height = char_width*2
+
 
 # char list
 chars = " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
@@ -48,7 +50,7 @@ def convert_img():
 def convert_vid():
     print("Converting to video")
     try:
-        subprocess.run(f"ffpeg -i {AUDIO_FILE} -r {fps} -i output/img_%1d.jpg output.mp4", shell=True, check=True)
+        subprocess.run(f"ffmpeg -i {AUDIO_FILE} -r {fps} -i output/img_%1d.jpg output.mp4", shell=True, check=True)
     except subprocess.CalledProcessError:
         cleanup()
         sys.exit("Error while converting to video")
@@ -115,5 +117,5 @@ def main():
 if __name__ == "__main__":
     try:
         main()
-    except KeyboardInterrupt:
+    except:
         cleanup()
