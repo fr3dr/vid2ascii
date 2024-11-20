@@ -2,4 +2,4 @@
 Turn videos into asciified videos!
 
 ## Usage
-vid2ascii <input_vid> <fps> <scale>
+vid2ascii [input_vid] [fps] [scale]
